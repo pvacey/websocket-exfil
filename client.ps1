@@ -1,8 +1,10 @@
-#[System.Text.Encoding]::UTF8.GetString((Invoke-WebRequest -Uri "http://localhost:8000/client.ps1" -UseBasicParsing -ErrorAction Stop).Content) | Invoke-Expression
+# The client runs this follow command to fetch the script
+# (Invoke-WebRequest -Uri "<URI_HERE>" -UseBasicParsing -ErrorAction Stop).Content | Invoke-Expression
 
 # Define the WebSocket server URI
-$wsUri = "ws://localhost:8765" # Ensure this matches your server's address
+$wsUri = "ws://{{ .Host }}/ws" # Ensure this matches your server's address
 $payloadFilePath = Read-Host -Prompt "Enter the path to the file you want to send (e.g., payload.txt)"
+$payloadFilePath = Join-Path -Path (Get-Location).Path -ChildPath $payloadFilePath
 $chunkSize = 100*1024 # Define the chunk size in bytes (e.g., 1KB)
 
 # Create a new ClientWebSocket object
@@ -37,7 +39,6 @@ try {
         Write-Host "Sending payload over WebSocket in chunks..."
 
         $startMessage = @{
-            cmd = "start"
             filename = $payloadFilePath.Split("\\")[-1]
         } | ConvertTo-Json
         $startBytes = [System.Text.Encoding]::UTF8.GetBytes($startMessage)
