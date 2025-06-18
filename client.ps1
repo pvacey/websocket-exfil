@@ -9,6 +9,7 @@ $chunkSize = 100*1024 # Define the chunk size in bytes (e.g., 1KB)
 
 # Create a new ClientWebSocket object
 $webSocket = New-Object System.Net.WebSockets.ClientWebSocket
+$webSocket.Options.SetRequestHeader("X-User-Agent", "WindowsPowerShell WebSocket") # Optional: Set a custom User-Agent header
 
 # Create a CancellationTokenSource for managing cancellation (good practice for async operations)
 $cancellationTokenSource = New-Object System.Threading.CancellationTokenSource
