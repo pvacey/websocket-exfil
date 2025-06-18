@@ -18,7 +18,7 @@ run:
 push:
 	@echo "[*] Pushing Docker image ${APP}:latest to ${REPO}"
 	docker tag ${APP}:latest ${REPO}/${APP}:latest
-	docker push ${REPO}/${APP}:latest
+	docker push http://${REPO}/${APP}:latest
 
 clean:
 	@echo "[*] Removing all stopped containers"
