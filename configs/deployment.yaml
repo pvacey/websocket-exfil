@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: websocket-exfil
+  labels:
+    app: websocket-exfil
+spec:
+  replicas: 1 # Start with 1 replica for this example
+  selector:
+    matchLabels:
+      app: websocket-exfil
+  template:
+    metadata:
+      labels:
+        app: websocket-exfil
+    spec:
+      volumes:
+      - name: shared-data-volume
+        emptyDir: {}
+      containers:
+      - name: uploader
+        image: kubernetes.lan:30500/websocket_exfil:latest
+        # These args override the CMD from the Dockerfile and are appended to ENTRYPOINT
+        args: ["-mode", "upload", "-port", "8080"]
+        volumeMounts:
+        - name: shared-data-volume
+          mountPath: /usr/src/app/uploads
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+      - name: downloader
+        image: kubernetes.lan:30500/websocket_exfil:latest
+        # These args override the CMD from the Dockerfile and are appended to ENTRYPOINT
+        args: ["-mode", "download", "-port", "8081"]
+        volumeMounts:
+        - name: shared-data-volume
+          mountPath: /usr/src/app/uploads
+        ports:
+        - containerPort: 8081
+          protocol: TCP
