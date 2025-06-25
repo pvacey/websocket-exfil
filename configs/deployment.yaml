@@ -19,7 +19,7 @@ spec:
         emptyDir: {}
       containers:
       - name: uploader
-        image: kubernetes.lan:30500/websocket_exfil:latest
+        image: ${CONTAINER_REGISTRY}/websocket_exfil:latest
         # These args override the CMD from the Dockerfile and are appended to ENTRYPOINT
         args: ["-mode", "upload", "-port", "8080"]
         volumeMounts:
@@ -29,7 +29,7 @@ spec:
         - containerPort: 8080
           protocol: TCP
       - name: downloader
-        image: kubernetes.lan:30500/websocket_exfil:latest
+        image: ${CONTAINER_REGISTRY}/websocket_exfil:latest
         # These args override the CMD from the Dockerfile and are appended to ENTRYPOINT
         args: ["-mode", "download", "-port", "8081"]
         volumeMounts:
@@ -39,4 +39,4 @@ spec:
         - containerPort: 8081
           protocol: TCP
       - name: tunnel
-        image: kubernetes.lan:30500/cftunnel:latest
+        image: ${CONTAINER_REGISTRY}/cftunnel:latest
