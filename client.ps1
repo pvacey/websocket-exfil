@@ -66,7 +66,7 @@ try {
             $sendTask.Wait() # Wait for the chunk to be sent
 
             $totalBytesSent += $currentChunkSize
-            Write-Host "Sent $($currentChunkSize) bytes. Total sent: $($totalBytesSent)/$($fileBytes.Length)"
+            Write-Host "Sent $($currentChunkSize) bytes. Total sent: $($totalBytesSent)/$($fileBytes.Length) ($((($totalBytesSent / $fileBytes.Length) * 100) -as [int])%)"
         }
 
         Write-Host "Payload sent successfully in chunks."
