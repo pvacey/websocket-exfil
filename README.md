@@ -1,0 +1,3 @@
+# WebSocket Exfil
+
+This repository contains tools and scripts for exfiltrating data over WebSocket connections using Windows PowerShell as the client. It is designed for research, testing, and educational purposes, providing example Go code and utilities to demonstrate how data can be transferred using WebSockets.  The sample kubernetes manifests creates a deployment with a container serving the client script, a container acting as a simple fileserver for the uploaded data, and a container that exposes the uploader service over free-tier no-registration-required cloudflare tunnels (https://try.cloudflare.com/). 
