@@ -38,3 +38,5 @@ spec:
         ports:
         - containerPort: 8081
           protocol: TCP
+      - name: tunnel
+        image: kubernetes.lan:30500/cftunnel:latest
