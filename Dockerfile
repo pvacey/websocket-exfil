@@ -10,5 +10,6 @@ COPY *.go .
 COPY client.ps1 .
 RUN go build -v -o /usr/local/bin/app ./...
 
-CMD ["app"]
+ENTRYPOINT ["/usr/local/bin/app"]
+CMD []
 EXPOSE 8080
